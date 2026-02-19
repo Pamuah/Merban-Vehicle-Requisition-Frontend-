@@ -1,13 +1,11 @@
-// src/pages/ManagerApprovals.tsx
-import React from "react";
 import { useApprovals } from "../hooks/useApprovals";
 import ApprovalTable from "../components/ApprovalTable";
 import { ShowToast } from "../components/Toast";
+import { mapApprovalToRequest } from "../types/mappedRequest";
 
 const ManagerApprovals = () => {
   // ensure localStorage.role === "manager"
-  const { approvals, loading, error, approveRequest, rejectRequest } =
-    useApprovals();
+  const { approvals, approveRequest, rejectRequest } = useApprovals();
 
   const handleApprove = async (id: string) => {
     try {
@@ -40,7 +38,7 @@ const ManagerApprovals = () => {
       </div>
       <div className="px-12">
         <ApprovalTable
-          items={approvals}
+          items={approvals.map(mapApprovalToRequest)}
           onApprove={handleApprove}
           onReject={handleReject}
         />

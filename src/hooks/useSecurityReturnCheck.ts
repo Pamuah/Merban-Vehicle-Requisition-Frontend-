@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import type {
   AfterTripCheckPayload,
@@ -25,7 +25,7 @@ export const useSecurityReturnCheck = () => {
 
       const res = await axios.get<{ data: VehicleRequest }>(
         `${BASE_URL}/api/security/request/${requestId}`,
-        getAuthHeader()
+        getAuthHeader(),
       );
 
       setRequest(res.data.data);
@@ -42,7 +42,7 @@ export const useSecurityReturnCheck = () => {
 
   const submitAfterTrip = async (
     requestId: string,
-    payload: AfterTripCheckPayload
+    payload: AfterTripCheckPayload,
   ) => {
     if (!requestId) throw new Error("No request selected");
 
@@ -53,7 +53,7 @@ export const useSecurityReturnCheck = () => {
       await axios.put(
         `${BASE_URL}/api/security/check-in/${requestId}`,
         payload,
-        getAuthHeader()
+        getAuthHeader(),
       );
 
       await fetchRequest(requestId);

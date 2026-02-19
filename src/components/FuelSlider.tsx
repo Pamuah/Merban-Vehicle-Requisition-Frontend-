@@ -19,14 +19,14 @@ const FuelSlider: React.FC<FuelSliderProps> = ({
     onChange?.(newValue);
   };
 
-  const getFuelLabel = (val: number): string => {
-    if (val === 0) return "E";
-    if (val === 0.25) return "1/4";
-    if (val === 0.5) return "1/2";
-    if (val === 0.75) return "3/4";
-    if (val === 1) return "F";
-    return `${Math.round(val * 100)}%`;
-  };
+  // const getFuelLabel = (val: number): string => {
+  //   if (val === 0) return "E";
+  //   if (val === 0.25) return "1/4";
+  //   if (val === 0.5) return "1/2";
+  //   if (val === 0.75) return "3/4";
+  //   if (val === 1) return "F";
+  //   return `${Math.round(val * 100)}%`;
+  // };
 
   return (
     <div className={className}>

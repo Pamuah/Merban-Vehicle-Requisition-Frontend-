@@ -14,7 +14,7 @@ export interface VehicleHistoryItem {
   fuel: string;
   notes: string;
 }
-interface Vehicle {
+export interface Vehicle {
   _id: string;
   plate_number: string;
   make: string;

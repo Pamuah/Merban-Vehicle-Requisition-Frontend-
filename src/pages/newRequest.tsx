@@ -19,7 +19,7 @@ interface NewRequestFormProps {
 
 export default function NewRequestForm({ onClose }: NewRequestFormProps) {
   const [step, setStep] = useState(1);
-  const { createRequest, data, loading, error } = useVehicleRequest();
+  const { createRequest, } = useVehicleRequest();
 
   // unified form state
   const [formData, setFormData] = useState<FormData>({
@@ -73,7 +73,7 @@ export default function NewRequestForm({ onClose }: NewRequestFormProps) {
     <div className="p-8">
       <div className="flex gap-8 items-start">
         {/* Stepper column - fixed width */}
-        <div className="w-48 flex-shrink-0">
+        <div className="w-48 shrink-0">
           <Stepper currentStep={step} steps={steps} />
         </div>
 

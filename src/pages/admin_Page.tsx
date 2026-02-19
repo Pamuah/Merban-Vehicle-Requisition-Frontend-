@@ -1,28 +1,16 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DashboardCard from "../components/dashboardCard";
 import {
   FiUsers,
   FiTruck,
   FiCheckCircle,
-  FiXCircle,
-  FiClock,
-  FiLogOut,
   FiActivity,
-  FiTrendingUp,
-  FiCalendar,
   FiAward,
-  FiChevronDown,
-  FiChevronUp,
   FiPieChart,
-  FiBarChart2,
 } from "react-icons/fi";
 import { useAdminDashboard } from "../hooks/useAdminDashboard.hook";
 import { useAdminVehicles } from "../hooks/useAdminVehicles.hook";
 import { useAdminAnalytics } from "../hooks/useAdminAnalytics.hook";
-import { useAdminAuth } from "../hooks/auth.Admin.hook";
 import DepartmentUsageChart from "../components/general/DeptUsageChart";
-import FuelConsumptionReport from "../components/FuelReport";
 import AdminSideNav from "../components/adminSideNav";
 import AdminCard from "../components/AdminCard";
 import bgAdmin from "../assets/bg-admin2.jpg";
@@ -30,9 +18,6 @@ import AdminTile from "../components/AdminTile";
 import VehicleVisualization from "../components/vehicleVIsualizationProp";
 
 const AdminPage = () => {
-  const navigate = useNavigate();
-  const { adminLogout } = useAdminAuth();
-
   // Dashboard stats
   const {
     loading: dashboardLoading,
@@ -53,8 +38,8 @@ const AdminPage = () => {
   // Analytics hooks
   const {
     loading: analyticsLoading,
-    fetchAverageTripDuration,
-    fetchPeakUsageTimes,
+    // fetchAverageTripDuration,
+    // fetchPeakUsageTimes,
     error: analyticsError,
   } = useAdminAnalytics();
 
@@ -64,13 +49,8 @@ const AdminPage = () => {
   const [vehiclesInUseCount, setVehiclesInUseCount] = useState<number>(0);
   const [mostRequestedVehicle, setMostRequestedVehicle] =
     useState<string>("--");
-  const [avgTripDuration, setAvgTripDuration] = useState<string>("--");
-  const [peakUsageTime, setPeakUsageTime] = useState<string>("--");
-
-  const [showUsageAnalytics, setShowUsageAnalytics] = useState(true);
-  const [showDepartmentStats, setShowDepartmentStats] = useState(false);
-  const [showFuelReport, setShowFuelReport] = useState(false);
-
+  // const [avgTripDuration, setAvgTripDuration] = useState<string>("--");
+  // const [peakUsageTime, setPeakUsageTime] = useState<string>("--");
   const [availableVehiclesData, setAvailableVehiclesData] = useState<
     {
       plate_number: string;
@@ -105,7 +85,7 @@ const AdminPage = () => {
           (vehicle: any, index: number) => ({
             plate_number: vehicle.plate_number,
             color: colors[index % colors.length],
-          })
+          }),
         );
         setAvailableVehiclesData(availableWithColors);
 
@@ -118,7 +98,7 @@ const AdminPage = () => {
           (vehicle: any, index: number) => ({
             plate_number: vehicle.plate_number,
             color: colors[index % colors.length],
-          })
+          }),
         );
         setVehiclesInUseData(inUseWithColors);
 
@@ -126,19 +106,19 @@ const AdminPage = () => {
         const mostRequested = await fetchMostRequestedVehicles();
         if (mostRequested.length > 0) {
           setMostRequestedVehicle(
-            `${mostRequested[0].plateNumber} (${mostRequested[0].requestCount})`
+            `${mostRequested[0].plateNumber} (${mostRequested[0].requestCount})`,
           );
         }
 
         // Fetch average trip duration
-        const tripDuration = await fetchAverageTripDuration();
-        setAvgTripDuration(`${tripDuration.averageDurationHours}h`);
+        // const tripDuration = await fetchAverageTripDuration();
+        // setAvgTripDuration(`${tripDuration.averageDurationHours}h`);
 
         // Fetch peak usage times
-        const peakTimes = await fetchPeakUsageTimes();
-        if (peakTimes.length > 0) {
-          setPeakUsageTime(`${peakTimes[0].dayOfWeek} ${peakTimes[0].hour}`);
-        }
+        // const peakTimes = await fetchPeakUsageTimes();
+        // if (peakTimes.length > 0) {
+        //   setPeakUsageTime(`${peakTimes[0].dayOfWeek} ${peakTimes[0].hour}`);
+        // }
       } catch (error) {
         console.error("Error fetching additional data:", error);
       }
@@ -146,10 +126,6 @@ const AdminPage = () => {
 
     fetchAdditionalData();
   }, []);
-  const handleLogout = () => {
-    adminLogout();
-    navigate("/");
-  };
 
   const isLoading = dashboardLoading || vehicleLoading || analyticsLoading;
   const hasError = dashboardError || vehicleError || analyticsError;
@@ -224,26 +200,6 @@ const AdminPage = () => {
                     value={stats?.todaysCheckins?.toString() || "0"}
                     icon={FiCheckCircle}
                   />
-                  {/* <DashboardCard
-                    title="Pending Approvals"
-                    value={stats?.pendingApprovals?.toString() || "0"}
-                    icon={FiClock}
-                  />
-                  <DashboardCard
-                    title="Total Rejections"
-                    value={stats?.totalRejections?.toString() || "0"}
-                    icon={FiXCircle}
-                  />
-                  <DashboardCard
-                    title="Completed Trips"
-                    value={stats?.completedTrips?.toString() || "0"}
-                    icon={FiCheckCircle}
-                  />
-                  <DashboardCard
-                    title="Approval Rates"
-                    value={`${rates?.approvalRate?.toFixed(1) || "0"}%`}
-                    icon={FiTrendingUp}
-                  /> */}
                 </div>
               </div>
 
@@ -271,48 +227,6 @@ const AdminPage = () => {
                 </div>
               </div>
 
-              {/* Usage Analytics Section - Collapsible */}
-              {/* <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <button
-                  onClick={() => setShowUsageAnalytics(!showUsageAnalytics)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <FiBarChart2 className="text-green-600 text-xl" />
-                    <div className="text-left">
-                      <h3 className="text-lg font-semibold text-gray-800">
-                        Usage Analytics
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Trip duration and peak usage insights
-                      </p>
-                    </div>
-                  </div>
-                  {showUsageAnalytics ? (
-                    <FiChevronUp className="text-gray-600 text-xl" />
-                  ) : (
-                    <FiChevronDown className="text-gray-600 text-xl" />
-                  )}
-                </button>
-
-                {showUsageAnalytics && (
-                  <div className="px-6 pb-6 border-t pt-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      <DashboardCard
-                        title="Average Trip Duration"
-                        value={avgTripDuration}
-                        icon={FiClock}
-                      />
-                      <DashboardCard
-                        title="Peak Usage Times"
-                        value={peakUsageTime}
-                        icon={FiCalendar}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div> */}
-
               {/* Department Usage Statistics - Collapsible */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden p-6">
                 <div className="flex items-center gap-3">
@@ -329,37 +243,6 @@ const AdminPage = () => {
 
                 <DepartmentUsageChart />
               </div>
-
-              {/* Fuel Consumption Report - Collapsible */}
-              {/* <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <button
-                  onClick={() => setShowFuelReport(!showFuelReport)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <FiBarChart2 className="text-green-600 text-xl" />
-                    <div className="text-left">
-                      <h3 className="text-lg font-semibold text-gray-800">
-                        Fuel Consumption Report
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Analyze fuel usage across the fleet
-                      </p>
-                    </div>
-                  </div>
-                  {showFuelReport ? (
-                    <FiChevronUp className="text-gray-600 text-xl" />
-                  ) : (
-                    <FiChevronDown className="text-gray-600 text-xl" />
-                  )}
-                </button>
-
-                {showFuelReport && (
-                  <div className="px-6 pb-6 border-t pt-6">
-                    <FuelConsumptionReport />
-                  </div>
-                )}
-              </div> */}
             </>
           )}
         </div>

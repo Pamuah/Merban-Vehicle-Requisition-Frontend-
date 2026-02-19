@@ -4,7 +4,7 @@ interface DashboardCardProps {
   title: string;
   value: number | string;
   icon: IconType;
-  onClick?: ()=>void;
+  onClick?: () => void;
 }
 
 const DashboardCard = ({
@@ -16,7 +16,7 @@ const DashboardCard = ({
   return (
     <div
       onClick={onClick}
-      className="bg-gradient-to-r from-gray-600 via-green-300 to-gray-800 rounded-2xl p-5 shadow-lg flex items-center justify-between"
+      className="bg-linear-to-r from-gray-600 via-green-300 to-gray-800 rounded-2xl p-5 shadow-lg flex items-center justify-between"
     >
       {/* Left Text Section */}
       <div className="flex flex-col">

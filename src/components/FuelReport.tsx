@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useAdminVehicles } from "../hooks/useAdminVehicles.hook";
 import type { FuelStats } from "../types/admin.types";
 import { FiDownload, FiCalendar } from "react-icons/fi";
@@ -286,7 +286,7 @@ const FuelConsumptionReport = () => {
                 const mostEfficient = fuelData.reduce((prev, curr) =>
                   prev.averageFuelConsumption < curr.averageFuelConsumption
                     ? prev
-                    : curr
+                    : curr,
                 );
                 const avgLitres = (
                   (mostEfficient.averageFuelConsumption / 100) *
@@ -310,7 +310,7 @@ const FuelConsumptionReport = () => {
                 const leastEfficient = fuelData.reduce((prev, curr) =>
                   prev.averageFuelConsumption > curr.averageFuelConsumption
                     ? prev
-                    : curr
+                    : curr,
                 );
                 const avgLitres = (
                   (leastEfficient.averageFuelConsumption / 100) *

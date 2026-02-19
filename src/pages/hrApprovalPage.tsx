@@ -1,10 +1,10 @@
 import { useApprovals } from "../hooks/useApprovals";
 import ApprovalTable from "../components/ApprovalTable";
 import { ShowToast } from "../components/Toast";
+import { mapApprovalToRequest } from "../types/mappedRequest";
 
 const HrApprovals = () => {
-  const { approvals, loading, error, approveRequest, rejectRequest } =
-    useApprovals();
+  const { approvals, approveRequest, rejectRequest } = useApprovals();
 
   const handleApprove = async (id: string) => {
     try {
@@ -38,7 +38,7 @@ const HrApprovals = () => {
 
       <div className="px-12">
         <ApprovalTable
-          items={approvals}
+          items={approvals.map(mapApprovalToRequest)}
           onApprove={handleApprove}
           onReject={handleReject}
         />

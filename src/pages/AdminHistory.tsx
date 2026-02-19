@@ -1,4 +1,3 @@
-import React from "react";
 import { AdminCheckHistory } from "../components/AdminHistory";
 import AdminSideNav from "../components/adminSideNav";
 

@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { useAdminAuth } from "../hooks/auth.Admin.hook";
+// import { useNavigate } from "react-router-dom";
+// import { useAdminAuth } from "../hooks/auth.Admin.hook";
 import FuelConsumptionReport from "../components/FuelReport";
 import AdminSideNav from "../components/adminSideNav";
 
 const AdminFuel = () => {
-  const navigate = useNavigate();
-  const { adminLogout } = useAdminAuth();
+  // const navigate = useNavigate();
+  // const { adminLogout } = useAdminAuth();
 
   return (
     <div className="min-h-screen bg-gray-100">

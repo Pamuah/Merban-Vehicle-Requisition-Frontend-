@@ -156,7 +156,7 @@ const VehicleCheckPage = () => {
       const payload = {
         car_assigned: checkInData.vehicleNumber,
         mileage_after: parseInt(checkInData.currentMileage),
-        fuel_level_after: (checkInData.fuelLevel * 100).toFixed(0),
+        fuel_level_after: Number((checkInData.fuelLevel * 100).toFixed(0)),
         condition_after: checkInData.vehicleCondition,
         condition_comment_after: checkInData.conditionNotes || undefined,
       };

@@ -4,7 +4,7 @@ import axios from "axios";
 const useSecurityApprovals = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useAdminAnalytics } from "../../hooks/useAdminAnalytics.hook";
 import type { DepartmentStats } from "../../types/admin.types";

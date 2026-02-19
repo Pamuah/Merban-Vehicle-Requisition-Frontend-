@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useComments } from "../hooks/useComment";
 
-const UserComment = () => {
+interface UserCommentProps {
+  onClose: () => void;
+}
+
+const UserComment = ({ onClose }: UserCommentProps) => {
   const [comment, setComment] = useState("");
   const [success, setSuccess] = useState(false);
   const { submitComment, loading, error } = useComments();
@@ -31,9 +35,15 @@ const UserComment = () => {
         comment: comment.trim(),
       });
 
+      // Reset form and show success
       setComment("");
       setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
+
+      // Auto-close modal after short delay
+      setTimeout(() => {
+        setSuccess(false);
+        onClose();
+      }, 1500);
     } catch (err) {
       console.error("Error submitting comment:", err);
     }
@@ -57,12 +67,12 @@ const UserComment = () => {
           onChange={(e) => setComment(e.target.value)}
           placeholder="Report any issues or problems with vehicles..."
           className="w-full text-gray-500 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 min-h-24 resize-y placeholder-gray-500"
-          disabled={loading}
+          disabled={loading || success}
         />
 
         <button
           onClick={handleSubmit}
-          disabled={loading || !comment.trim()}
+          disabled={loading || !comment.trim() || success}
           className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           {loading ? "Submitting..." : "Submit"}

@@ -11,7 +11,7 @@ import { roleOptions } from "../data/roleData";
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
-  const { register, loading, error } = useAuth(); // ✅ Correct
+  const { register, loading} = useAuth(); // ✅ Correct
   const navigate = useNavigate();
 
   const [form, setForm] = useState<RegisterForm>({
