@@ -5,8 +5,8 @@ export interface option {
 
 export const departmentOptions: option[] = [
   {
-    label: "Executives",
-    value: "Executives",
+    label: "Advisory",
+    value: "Advisory",
   },
   { label: "Wealth Management", value: "Wealth Management" },
   { label: "Mutual Funds", value: "Mutual Funds" },

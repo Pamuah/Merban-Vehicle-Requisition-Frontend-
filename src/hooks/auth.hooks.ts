@@ -63,13 +63,14 @@ export const useAuth = () => {
     } catch (err: unknown) {
       console.error("❌ Login error:", err);
       if (axios.isAxiosError(err)) {
-        setError(
-          err.response?.data?.message || "Login failed. Please try again.",
-        );
+        const message =
+          err.response?.data?.message || "Login failed. Please try again.";
+        setError(message);
+        throw new Error(message);
       } else {
         setError("An unexpected error occurred.");
+        throw new Error("An unexpected error occurred.");
       }
-      throw err;
     } finally {
       setLoading(false);
     }
@@ -93,14 +94,15 @@ export const useAuth = () => {
       return registeredUser;
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        setError(
+        const message =
           err.response?.data?.message ||
-            "Registration failed. Please try again.",
-        );
+          "Registration failed. Please try again.";
+        setError(message);
+        throw new Error(message);
       } else {
         setError("An unexpected error occurred.");
+        throw new Error("An unexpected error occurred.");
       }
-      throw err;
     } finally {
       setLoading(false);
     }

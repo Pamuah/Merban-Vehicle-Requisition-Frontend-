@@ -87,7 +87,7 @@ const LoginPage = () => {
           </p>
           <div className="mb-4 flex flex-col gap-4">
             <FloatingTextField
-              label="Email or Username"
+              label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"

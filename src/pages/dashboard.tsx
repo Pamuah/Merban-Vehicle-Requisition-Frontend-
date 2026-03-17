@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [fetchStats]);
   return (
     <div className="h-screen w-screen flex bg-gray-50">
       {/* Sidebar fixed on the left */}

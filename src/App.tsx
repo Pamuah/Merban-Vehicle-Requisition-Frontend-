@@ -12,6 +12,7 @@ import AdminOperationMetrics from "./pages/AdminOperationMetrics";
 import AdminFuel from "./pages/AdminFuel";
 import AdminHistory from "./pages/AdminHistory";
 import AdminComments from "./pages/AdminComments";
+import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
   return (
@@ -19,12 +20,54 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/approvals/hr" element={<HrApprovals />} />
-        <Route path="/approvals/manager" element={<ManagerApprovals />} />
-        <Route path="/security/check/:id" element={<VehicleCheckPage />} />
-        <Route path="/security/dashboard" element={<SecurityPage />} />
-        <Route path="/admin/dashboard" element={<AdminPage />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/approvals/hr"
+          element={
+            <ProtectedRoute>
+              <HrApprovals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/approvals/manager"
+          element={
+            <ProtectedRoute>
+              <ManagerApprovals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/security/check/:id"
+          element={
+            <ProtectedRoute>
+              <VehicleCheckPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/security/dashboard"
+          element={
+            <ProtectedRoute>
+              <SecurityPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/operational-metrics"
           element={<AdminOperationMetrics />}
